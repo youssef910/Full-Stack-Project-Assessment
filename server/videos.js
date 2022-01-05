@@ -58,6 +58,19 @@ const getAllVideos = {
       }
     );
   },
+  addVideo: (newData, resolve, reject) => {
+    pool.query(
+      `INSERT INTO videos(title ,url)VALUES ($1,$2)`,
+      [newData.title, newData.url],
+      (error, result) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(result.rows);
+        }
+      }
+    );
+  },
 };
 
 module.exports = getAllVideos;
