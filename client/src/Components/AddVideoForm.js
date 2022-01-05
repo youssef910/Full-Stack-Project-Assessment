@@ -11,7 +11,13 @@ const AddVideoForm = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(form);
+    fetch('http://localhost:5000/api/add-video', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(form),
+    }).then((res) => console.log(res.json()));
     setForm(initialState);
   };
   return (
@@ -23,6 +29,7 @@ const AddVideoForm = () => {
         <input
           name='title'
           type='text'
+          value={form.title}
           className='form-control'
           onChange={handleChange}
         />
@@ -34,6 +41,7 @@ const AddVideoForm = () => {
         <input
           name='url'
           className='form-control'
+          value={form.url}
           id='exampleInputPassword1'
           onChange={handleChange}
         />
