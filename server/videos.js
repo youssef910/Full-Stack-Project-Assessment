@@ -34,10 +34,21 @@ const getAllVideos = {
       }
     );
   },
-  UpVote: (id, resolve, reject) => {
+  upVote: (id, resolve, reject) => {
     pool.query(
-      'UPDATE videos set rating = (rating+1) where id =$1 ',
-      [id],
+      `UPDATE videos set rating = (rating + 1 ) where id =${id}`,
+      (error, result) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(result.rows);
+        }
+      }
+    );
+  },
+  downVote: (id, resolve, reject) => {
+    pool.query(
+      `UPDATE videos set rating = (rating - 1 ) where id =${id}`,
       (error, result) => {
         if (error) {
           reject(error);

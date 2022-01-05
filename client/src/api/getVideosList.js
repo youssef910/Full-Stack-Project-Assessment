@@ -6,13 +6,13 @@ const getAllVideos = async () => {
     } = await axios.get('http://localhost:5000/api/video-list');
     return data;
   } catch (error) {
-    console.log(error);
+    console.log(error);  
   }
   // fetch(`http://localhost:5000/api/video-list`)
   //   .then((res) => res.json())
   //   .then((data) => {
   //     console.log(data.data);
-  //     return data.data;
+  //     return data.data; 
   // });
 };
 
