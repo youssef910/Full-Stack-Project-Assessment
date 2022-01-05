@@ -156,5 +156,35 @@ router.put('/down-vote/:id', (req, res, next) => {
     }
   );
 });
+router.post('/add-video', (req, res, next) => {
+  const newData = req.body;
+  getAllVideos.search(
+    newData.title,
+    (data) => {
+      if (!data.length) {
+        getAllVideos.addVideo(newData, (data) => {
+          res.status(200).json({
+            status: 200,
+            statusText: 'OK',
+            Message: `new Video Added`,
+          });
+        });
+      } else {
+        res.status(404).json({
+          status: 404,
+          statusText: 'failed to add',
+          message: `Failed to Add`,
+          error: {
+            code: 'failed to add',
+            message: `failed to add Video`,
+          },
+        });
+      }
+    },
+    (err) => {
+      next(err);
+    }
+  );
+});
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
