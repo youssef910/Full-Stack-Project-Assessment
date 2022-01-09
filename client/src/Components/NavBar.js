@@ -1,63 +1,28 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-
+import { Navbar, Container, Nav } from 'react-bootstrap';
+import BlueElectricImage from '../BlueElectricImage.jpg';
 const NavBar = () => {
   return (
-    <nav className='navbar navbar-expand-lg navbar-light text-light bg-darkt'>
-      <div className='container-fluid'>
-        {/* <a className="navbar-brand" href="#">Navbar</a> */}
-        <button
-          className='navbar-toggler'
-          type='button'
-          data-bs-toggle='collapse'
-          data-bs-target='#navbarSupportedContent'
-          aria-controls='navbarSupportedContent'
-          aria-expanded='false'
-          aria-label='Toggle navigation'
-        >
-          <span className='navbar-toggler-icon'></span>
-        </button>
-        <div className='collapse navbar-collapse' id='navbarSupportedContent'>
-          <ul className='navbar-nav me-auto mb-2 mb-lg-0'>
-            <li className='nav-item'>
-              <Link className='nav-link active' aria-current='page' to='/'>
-                Home
-              </Link>
-            </li>
-            <li className='nav-item'>
-              <Link
-                className='nav-link active'
-                aria-current='page'
-                to='/recommended-videos'
-              >
-                Recommended Videos
-              </Link>
-            </li>
-
-            <li className='nav-item'>
-              <Link
-                className='nav-link active'
-                aria-current='page'
-                to='/Add-Video'
-              >
-                Add Video
-              </Link>
-            </li>
-          </ul>
-          <form className='d-flex'>
-            <input
-              className='form-control me-2'
-              type='search'
-              placeholder='Search'
-              aria-label='Search'
-            />
-            <button className='btn btn-outline-success' type='submit'>
-              Search
-            </button>
-          </form>
-        </div>
-      </div>
-    </nav>
+    <Navbar expand='lg' bg='dark' variant='dark' sticky='top'>
+      <Container fluid>
+        <Navbar.Brand href='/'>
+          <img
+            src={BlueElectricImage}
+            width='50'
+            height='30'
+            className='d-inline-block align-top'
+            alt='React Bootstrap logo'
+          />
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls='basic-navbar-nav' />
+        <Navbar.Collapse id='basic-navbar-nav'>
+          <Nav className='me-auto'>
+            <Nav.Link href='/'>Home</Nav.Link>
+            <Nav.Link href='/Add-Video'>Add Video</Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 };
 
