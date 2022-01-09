@@ -12,6 +12,18 @@ const getAllVideos = {
       }
     });
   },
+  sortBy: (sorter = 'id', resolve, reject) => {
+    pool.query(
+      `SELECT * FROM videos ORDER BY ${sorter} ASC`,
+      (error, result) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(result.rows);
+        }
+      }
+    );
+  },
   getById: (id, resolve, reject) => {
     pool.query(`SELECT * FROM videos WHERE id=${id}`, (error, result) => {
       if (error) {
@@ -23,7 +35,7 @@ const getAllVideos = {
   },
   search: (searchWord, resolve, reject) => {
     pool.query(
-      `SELECT * FROM videos WHERE LOWER(title)  LIKE '%'||$1||'%'`,
+      `SELECT * FROM videos WHERE LOWER(title)  ~ $1  `,
       [searchWord],
       (error, result) => {
         if (error) {

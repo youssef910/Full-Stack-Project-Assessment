@@ -1,74 +1,65 @@
 import React, { useState, useEffect } from 'react';
-import { Icon } from 'semantic-ui-react';
-import ReactPlayer from 'react-player';
-import getAllVideos from '../api/getVideosList';
+import { Row, Container } from 'react-bootstrap';
+import {
+  downVote,
+  getAllVideos,
+  upVote,
+  sort,
+  search,
+} from '../api/VideoListManagement';
+import SearchVideos from './SearchVideos';
+import SortDropDown from './SortDropDown';
+import VideoCard from './VideoCard';
 
 const VideoList = () => {
   const [videoList, setVideoList] = useState([]);
-  useEffect(() => {
-    const fetchApi = async () => {
-      setVideoList(await getAllVideos());
-    };
-    fetchApi();
-  }, [videoList]);
 
+  const pageReload = () => getAllVideos().then((res) => setVideoList(res.data));
+
+  useEffect(() => {
+    pageReload();
+  }, [setVideoList]);
   const handleUpVote = (id) => {
-    fetch(`http://localhost:5000/api/up-vote/${id}`, {
-      method: 'PUT',
-    })
-      .then((res) => res.json())
-      .then((data) => setVideoList(data.data));
+    upVote(id);
+    pageReload();
   };
   const handleDownVote = (id) => {
-    fetch(`http://localhost:5000/api/down-vote/${id}`, {
-      method: 'PUT',
-    })
-      .then((res) => res.json())
-      .then((data) => setVideoList(data.data));
+    downVote(id);
+    pageReload();
+  };
+  const handleSorting = (sorter) => {
+    sort(sorter).then((data) => setVideoList(data.data));
+  };
+  const handleSearch = (searchWord) => {
+    search(searchWord).then((data) => setVideoList(data.data));
   };
 
   return (
-    <div className=' container bg-dark'>
-      <header className='App-header  text-center text-light'>
-        <h1>Video Recommendation</h1>
-      </header>
-      <div className='row justify-content-md-center'>
+    <Container
+      fluid
+      className='justify-content-center'
+      style={{ backgroundColor: 'black' }}
+    >
+      <Row className='justify-content-center'>
+        <header className='col App-header  text-center text-light'>
+          <h1>Video Recommendation</h1>
+        </header>
+      </Row>
+      <Row className=' my-3 justify-content-center'>
+        <SortDropDown handleSorting={handleSorting} />
+        <SearchVideos handleSearch={handleSearch} />
+      </Row>
+      <Row className=' justify-content-around'>
         {videoList.map((video, key) => (
-          <div
-            className=' card p-0 m-2 card text-dark bg- mb-3 border-primary
-             text-center col-sm-12 col-xl-4 col-xxl-4 col-lg-4 col-xsm-12 col-md-4'
+          <VideoCard
+            video={video}
             key={key}
-          >
-            <h5 className='card-header '>{video.title}</h5>
-            <div className='card-body'>
-              <ReactPlayer
-                url={video.url}
-                light
-                width={'100%'}
-                controls={true}
-              />
-            </div>
-            <div className='card-footer'>
-              <button type='button' class='btn btn-primary'>
-                Rating <span class='badge bg-secondary'>{video.rating}</span>
-              </button>
-              <Icon
-                name='chevron circle up'
-                color='blue'
-                onClick={() => handleUpVote(video.id)}
-              />
-              up vote
-              <Icon
-                name='chevron circle down'
-                color='blue'
-                onClick={() => handleDownVote(video.id)}
-              />
-              Down vote
-            </div>
-          </div>
+            handleDownVote={handleDownVote}
+            handleUpVote={handleUpVote}
+          />
         ))}
-      </div>
-    </div>
+      </Row>
+    </Container>
   );
 };
 
