@@ -6,7 +6,7 @@ import AddVideoForm from './Components/AddVideoForm';
 
 const App = () => {
   return (
-    <div>
+    <div className='App'>
       <NavBar />
       <Routes>
         <Route path='/' element={<VideoList />} />
