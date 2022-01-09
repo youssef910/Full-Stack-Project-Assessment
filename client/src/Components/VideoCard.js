@@ -1,15 +1,26 @@
 import React from 'react';
 import ReactPlayer from 'react-player';
 import { Card, Button, Badge, Row, Col } from 'react-bootstrap';
-import { HandThumbsDownFill, HandThumbsUpFill } from 'react-bootstrap-icons';
+import {
+  HandThumbsDownFill,
+  HandThumbsUpFill,
+  TrashFill,
+} from 'react-bootstrap-icons';
+import { upVote, downVote } from '../api/VideoListManagement';
 
 const VideoCard = (props) => {
-  const { video, handleUpVote, handleDownVote } = props;
-  const UpVote = () => {
-    handleUpVote(video.id);
+  const { video, pageReload, confirmDeleteVideo } = props;
+
+  const handleUpVote = () => {
+    upVote(video.id);
+    pageReload();
   };
-  const downVote = () => {
-    handleDownVote(video.id);
+  const handleDownVote = () => {
+    downVote(video.id);
+    pageReload();
+  };
+  const handleDeleteVideo = () => {
+    confirmDeleteVideo(video.id);
   };
 
   return (
@@ -30,16 +41,24 @@ const VideoCard = (props) => {
             </Button>
           </Col>
           <Col>
-            <HandThumbsUpFill color='blue' size={'1.5rem'} onClick={UpVote} />
+            <HandThumbsUpFill
+              color='blue'
+              size={'1.5rem'}
+              onClick={handleUpVote}
+            />
             up vote
           </Col>
           <Col>
-            <HandThumbsDownFill
-              color='red'
-              size={'1.5rem'}
-              onClick={downVote}
-            />
+            <HandThumbsDownFill color='red' onClick={handleDownVote} />
             Down vote
+          </Col>
+        </Row>
+      </Card.Body>
+      <Card.Body>
+        <Row>
+          <Col>
+            <TrashFill color='red' size={20} onClick={handleDeleteVideo} />
+            Delete Video
           </Col>
         </Row>
       </Card.Body>
