@@ -2,7 +2,7 @@ const config = {
   development: {
     user: 'postgres',
     host: 'localhost',
-    database: 'videoList',
+    database: 'video_list',
     password: 'password',
     port: 5432,
   },
