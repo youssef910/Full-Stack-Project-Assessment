@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { Navbar, Container, Nav, Form } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Navbar, Container, Nav, Form, Col, Row } from 'react-bootstrap';
 import BlueElectricImage from '../BlueElectricImage.jpg';
+import { SunriseFill, SunsetFill } from 'react-bootstrap-icons';
 
 const NavBar = () => {
   const [darkMode, setDarkMode] = useState(false);
- 
+
   const setMode = () => {
     let bgColor = darkMode ? 'white' : 'black';
     let fColor = darkMode ? 'black' : 'White';
@@ -41,15 +42,26 @@ const NavBar = () => {
           </Nav>
         </Navbar.Collapse>
       </Container>
-      <Form>
-        <Form.Check
-          color='blue'
-          type='switch'
-          id='custom-switch'
-          label='Check this switch'
-          onClick={handleDarkMode}
-        />
-      </Form>
+      <Row>
+        <Col>
+          {darkMode ? (
+            <SunriseFill color='white' size={30} />
+          ) : (
+            <SunsetFill color='dark' size={30} />
+          )}
+        </Col>
+        <Col>
+          <Form>
+            <Form.Check
+              color='blue'
+              type='switch'
+              id='custom-switch'
+              label={darkMode ? 'Switch Light Mode' : 'Switch Dark Mode'}
+              onClick={handleDarkMode}
+            />
+          </Form>
+        </Col>
+      </Row>
     </Navbar>
   );
 };
