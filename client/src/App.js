@@ -4,16 +4,16 @@ import { Routes, Route } from 'react-router-dom';
 import VideoList from './Components/VideoList';
 import AddVideoForm from './Components/AddVideoForm';
 
-function App() {
+const App = () => {
   return (
-    <div>
+    <div style={{ backgroundColor: 'black', height: '1000' }}>
       <NavBar />
-      <Routes >
+      <Routes>
         <Route path='/' element={<VideoList />} />
         <Route path='/Add-Video' element={<AddVideoForm />} />
       </Routes>
     </div>
   );
-}
+};
 
 export default App;
