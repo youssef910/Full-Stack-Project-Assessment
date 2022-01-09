@@ -83,6 +83,15 @@ const getAllVideos = {
       }
     );
   },
+  deleteVideo: (id, resolve, reject) => {
+    pool.query(`DELETE FROM videos WHERE id =${id}`, (error, result) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(result.rows);
+      }
+    });
+  },
 };
 
 module.exports = getAllVideos;
