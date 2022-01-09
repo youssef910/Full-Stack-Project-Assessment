@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Form, Button, Container } from 'react-bootstrap';
 
 const AddVideoForm = () => {
   const initialState = { title: '', url: '' };
@@ -21,36 +22,30 @@ const AddVideoForm = () => {
     setForm(initialState);
   };
   return (
-    <form onSubmit={handleSubmit}>
-      <div className='mb-3'>
-        <label htmlFor='title' className='form-label fw-bolder'>
-          Video title
-        </label>
-        <input
-          name='title'
-          type='text'
-          value={form.title}
-          className='form-control'
-          onChange={handleChange}
-        />
-      </div>
-      <div className='mb-3'>
-        <label type='url' className='fw-bold'>
-          Video Link
-        </label>
-        <input
-          name='url'
-          className='form-control'
-          value={form.url}
-          id='exampleInputPassword1'
-          onChange={handleChange}
-        />
-      </div>
+    <Container style={{ backgroundColor: 'black', color: 'white' }}>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group className='mb-3'>
+          <Form.Label>Video Title</Form.Label>
+          <Form.Control
+            type='text'
+            placeholder='Enter Video Title'
+            onChange={handleChange}
+          />
+        </Form.Group>
+        <Form.Group className='mb-3'>
+          <Form.Label>URL</Form.Label>
+          <Form.Control
+            type='text'
+            placeholder='Video URL'
+            onChange={handleChange}
+          />
+        </Form.Group>
 
-      <button type='submit' className='btn btn-primary'>
-        Submit
-      </button>
-    </form>
+        <Button variant='primary' type='submit'>
+          Add Video
+        </Button>
+      </Form>
+    </Container>
   );
 };
 
