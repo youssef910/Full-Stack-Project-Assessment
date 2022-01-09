@@ -4,7 +4,7 @@ CREATE TABLE videos (
   title     VARCHAR(120) NOT NULL,
   url    VARCHAR(120) NOT NULL,
   rating  INT DEFAULT 0,
-  added_at  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  added_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 INSERT INTO videos(title ,url,rating)VALUES ('The Coding Train','https://www.youtube.com/watch?v=HerCR8bw_GE',230);
 INSERT INTO videos(title ,url,rating)VALUES ('Mac & Cheese | Basics with Babish','https://www.youtube.com/watch?v=FUeyrEN14Rk',2111);

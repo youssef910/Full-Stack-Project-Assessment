@@ -15,6 +15,37 @@ app.use('/api/', router);
 // app.use('/api', api);
 
 // GET all videos
+router.delete('/delete/:id', (req, res, next) => {
+  const id = req.params.id;
+  console.log(id);
+  getAllVideos.getById(
+    id,
+    (data) => {
+      if (data.length) {
+        getAllVideos.deleteVideo(id, (data) => {
+          res.status(200).json({
+            status: 200,
+            statusText: 'OK',
+            Message: 'Video is Deleted',
+          });
+        });
+      } else {
+        res.status(404).json({
+          status: 404,
+          statusText: 'failed to add',
+          message: `Failed to Delete`,
+          error: {
+            code: 'failed to add',
+            message: `failed to Delete Video`,
+          },
+        });
+      }
+    },
+    (err) => {
+      next(err);
+    }
+  );
+});
 
 router.get('/video-list', (req, res, next) => {
   getAllVideos.get(

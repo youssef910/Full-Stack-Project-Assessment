@@ -22,3 +22,7 @@ export const search = (searchWord) =>
   fetch(`http://localhost:5000/api/search?word=${searchWord}`).then((res) =>
     res.json()
   );
+export const deleteVideo = (id) =>
+  fetch(`http://localhost:5000/api/delete/${id}`, {
+    method: 'DELETE',
+  }).then((res) => res.json());
