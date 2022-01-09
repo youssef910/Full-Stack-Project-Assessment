@@ -1,9 +1,29 @@
-import React from 'react';
-import { Navbar, Container, Nav } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Navbar, Container, Nav, Form, Col, Row } from 'react-bootstrap';
 import BlueElectricImage from '../BlueElectricImage.jpg';
+import { SunriseFill, SunsetFill } from 'react-bootstrap-icons';
+
 const NavBar = () => {
+  const [darkMode, setDarkMode] = useState(false);
+
+  const setMode = () => {
+    let bgColor = darkMode ? 'white' : 'black';
+    let fColor = darkMode ? 'black' : 'White';
+    document.documentElement.style.setProperty(`--bg--color`, bgColor);
+    document.documentElement.style.setProperty('--font--color', fColor);
+  };
+
+  const handleDarkMode = () => {
+    setDarkMode((prevState) => !prevState);
+    setMode();
+  };
   return (
-    <Navbar expand='lg' bg='dark' variant='dark' sticky='top'>
+    <Navbar
+      expand='lg'
+      bg={darkMode ? 'dark' : 'light'}
+      variant={darkMode ? 'dark' : 'light'}
+      sticky='top'
+    >
       <Container fluid>
         <Navbar.Brand href='/'>
           <img
@@ -22,6 +42,26 @@ const NavBar = () => {
           </Nav>
         </Navbar.Collapse>
       </Container>
+      <Row>
+        <Col>
+          {darkMode ? (
+            <SunriseFill color='white' size={30} />
+          ) : (
+            <SunsetFill color='dark' size={30} />
+          )}
+        </Col>
+        <Col>
+          <Form>
+            <Form.Check
+              color='blue'
+              type='switch'
+              id='custom-switch'
+              label={darkMode ? 'Switch Light Mode' : 'Switch Dark Mode'}
+              onClick={handleDarkMode}
+            />
+          </Form>
+        </Col>
+      </Row>
     </Navbar>
   );
 };

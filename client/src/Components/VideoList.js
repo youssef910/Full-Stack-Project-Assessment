@@ -42,13 +42,9 @@ const VideoList = () => {
   return (
     <div>
       {!show ? (
-        <Container
-          fluid
-          className='justify-content-center'
-          style={{ backgroundColor: 'black' }}
-        >
+        <Container fluid className='justify-content-center'>
           <Row className='justify-content-center'>
-            <header className='col App-header  text-center text-light'>
+            <header className='col App  text-center '>
               <h1>Video Recommendation</h1>
             </header>
           </Row>
@@ -68,13 +64,11 @@ const VideoList = () => {
           </Row>
         </Container>
       ) : (
-        <Modal show={show} onHide={handleClose}>
+        <Modal style={{ color: 'red' }} show={show} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
+            <Modal.Title> Delete video</Modal.Title>
           </Modal.Header>
-          <Modal.Body style={{ color: 'red' }}>
-            Are you sure you want to delete this video
-          </Modal.Body>
+          <Modal.Body>Are you sure you want to delete this video</Modal.Body>
           <Modal.Footer>
             <Button variant='secondary' onClick={handleClose}>
               Close

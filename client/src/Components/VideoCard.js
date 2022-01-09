@@ -24,7 +24,7 @@ const VideoCard = (props) => {
   };
 
   return (
-    <Card text='center' bg='info' style={{ width: '31%' }} className='m-2 p-0'>
+    <Card text='center' bg='info' style={{ width: '32%' }} className='m-1 p-0'>
       <Card.Header center>{video.title}</Card.Header>
       <Card.Body>
         <ReactPlayer url={video.url} light width={'100%'} controls={true} />
