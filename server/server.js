@@ -17,7 +17,6 @@ app.use('/api/', router);
 // GET all videos
 router.delete('/delete/:id', (req, res, next) => {
   const id = req.params.id;
-  console.log(id);
   getAllVideos.getById(
     id,
     (data) => {
