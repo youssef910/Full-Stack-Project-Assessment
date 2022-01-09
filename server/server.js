@@ -34,7 +34,6 @@ router.get('/video-list', (req, res, next) => {
 // search video by name containing search word
 router.get('/search', (req, res, next) => {
   const searchWord = req.query.word;
-  console.log(searchWord);
   getAllVideos.search(
     searchWord,
     (data) => {
@@ -67,6 +66,35 @@ router.get('/:id', (req, res, next) => {
   const id = req.params.id;
   getAllVideos.getById(
     id,
+    (data) => {
+      if (data.length) {
+        res.status(200).json({
+          status: 200,
+          statusText: 'OK',
+          message: 'all Videos retrieved',
+          data: data,
+        });
+      } else {
+        res.status(404).json({
+          status: 404,
+          statusText: 'Not Found',
+          message: `there is no data for the video with id ${id}`,
+          error: {
+            code: 'Not Found',
+            message: `there is no data for the video with id ${id}`,
+          },
+        });
+      }
+    },
+    (err) => {
+      next(err);
+    }
+  );
+});
+router.get('/sort/:sorter', (req, res, next) => {
+  const sorter = req.params.sorter;
+  getAllVideos.sortBy(
+    sorter,
     (data) => {
       if (data.length) {
         res.status(200).json({
