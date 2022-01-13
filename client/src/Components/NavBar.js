@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Navbar, Container, Nav, Form, Col, Row } from 'react-bootstrap';
-import BlueElectricImage from '../BlueElectricImage.jpg';
-import { SunriseFill, SunsetFill } from 'react-bootstrap-icons';
-
+import { Grommet, Anchor, Box, Header, Menu, ResponsiveContext } from 'grommet';
+import { Link } from 'react-router-dom';
+import { Youtube, Moon, Sun, Menu as MenuIcon } from 'grommet-icons';
+import { grommet } from 'grommet/themes';
 const NavBar = () => {
   const [darkMode, setDarkMode] = useState(false);
 
@@ -18,51 +18,71 @@ const NavBar = () => {
     setMode();
   };
   return (
-    <Navbar
-      expand='lg'
-      bg={darkMode ? 'dark' : 'light'}
-      variant={darkMode ? 'dark' : 'light'}
-      sticky='top'
-    >
-      <Container fluid>
-        <Navbar.Brand href='/'>
-          <img
-            src={BlueElectricImage}
-            width='50'
-            height='30'
-            className='d-inline-block align-top'
-            alt='React Bootstrap logo'
+    <Grommet className=' sticky-top' theme={grommet}>
+      <Header background='#72A2C0' pad='medium' height='xxsmall'>
+        <Box direction='row' gap='medium'>
+          <Anchor
+            as={Link}
+            to='/'
+            color='#192E5B'
+            justify='end'
+            icon={<Youtube color='#192E5B' />}
+            label='Video Recommendation'
           />
-        </Navbar.Brand>
-        <Navbar.Toggle aria-controls='basic-navbar-nav' />
-        <Navbar.Collapse id='basic-navbar-nav'>
-          <Nav className='me-auto'>
-            <Nav.Link href='/'>Home</Nav.Link>
-            <Nav.Link href='/Add-Video'>Add Video</Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-      <Row>
-        <Col>
+          <ResponsiveContext.Consumer>
+            {(size) =>
+              size === 'small' ? (
+                <Box justify='start' direction='row'>
+                  <Menu
+                    dropBackground='#72A2C0'
+                    a11yTitle='Navigation Menu'
+                    dropProps={{
+                      justifyContent: 'start',
+                      align: { top: 'bottom', right: 'right' },
+                    }}
+                    icon={<MenuIcon color='#192E5B' />}
+                    items={[
+                      {
+                        label: (
+                          <Box background='#72A2C0' color='#192E5B'>
+                            Home
+                          </Box>
+                        ),
+                        href: '/',
+                      },
+                      {
+                        label: (
+                          <Box pad='small' background='#72A2C0' color='#192E5B'>
+                            Add Video
+                          </Box>
+                        ),
+                        href: '/Add-Video',
+                      },
+                    ]}
+                  />
+                </Box>
+              ) : (
+                <Box justify='start' direction='row' gap='medium'>
+                  <Anchor as={Link} to='/' label='Home' color='#192E5B' />
+                  <Anchor
+                    as={Link}
+                    to='/Add-Video'
+                    label='Add Video'
+                    color='#192E5B'
+                  />
+                </Box>
+              )
+            }
+          </ResponsiveContext.Consumer>
+
           {darkMode ? (
-            <SunriseFill color='white' size={30} />
+            <Sun color='black' onClick={handleDarkMode} />
           ) : (
-            <SunsetFill color='dark' size={30} />
+            <Moon color='black' label='Dark Mode' onClick={handleDarkMode} />
           )}
-        </Col>
-        <Col>
-          <Form>
-            <Form.Check
-              color='blue'
-              type='switch'
-              id='custom-switch'
-              label={darkMode ? 'Switch Light Mode' : 'Switch Dark Mode'}
-              onClick={handleDarkMode}
-            />
-          </Form>
-        </Col>
-      </Row>
-    </Navbar>
+        </Box>
+      </Header>
+    </Grommet>
   );
 };
 

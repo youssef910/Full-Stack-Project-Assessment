@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Form, FormControl, Button } from 'react-bootstrap';
+import { Box, Button, TextInput, Grommet } from 'grommet';
+import { grommet } from 'grommet/themes';
+import { FormSearch } from 'grommet-icons';
 
 const SearchVideos = ({ handleSearch }) => {
   const initialState = '';
@@ -14,18 +16,23 @@ const SearchVideos = ({ handleSearch }) => {
     setSearchWord(initialState);
   };
   return (
-    <Form className='d-flex col-4' onSubmit={handleSubmitSearch}>
-      <FormControl
-        type='search'
-        placeholder='Search'
-        className='me-2'
-        value={searchWord}
-        onChange={handleSearchWord}
-      />
-      <Button variant='success' onClick={handleSubmitSearch}>
-        Search
-      </Button>
-    </Form>
+    <Grommet theme={grommet}>
+      <Box direction='row' gap='small' width='medium'>
+        <TextInput
+          icon={<FormSearch />}
+          placeholder='Search Videos'
+          onChange={handleSearchWord}
+        />
+        <Button
+          primary
+          size='small'
+          color='lightGreen'
+          type='submit'
+          label='search'
+          onClick={handleSubmitSearch}
+        />
+      </Box>
+    </Grommet>
   );
 };
 

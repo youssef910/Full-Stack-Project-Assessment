@@ -1,24 +1,40 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Dropdown from 'react-bootstrap/Dropdown';
+
+import { Box, Select } from 'grommet';
+import { Unsorted } from 'grommet-icons';
 
 const SortDropDown = ({ handleSorting }) => {
-  function handleSelect(e) {
-    handleSorting(e);
-  }
-
+  const objectOptions = [
+    {
+      label: 'By Date',
+      value: 'added_at',
+    },
+    {
+      label: 'By Name',
+      value: 'title',
+    },
+    {
+      label: 'By Rating',
+      value: 'rating',
+    },
+  ];
   return (
-    <Dropdown className='col-4' onSelect={handleSelect}>
-      <Dropdown.Toggle variant='success' id='dropdown-basic'>
-        SortBy
-      </Dropdown.Toggle>
-
-      <Dropdown.Menu>
-        <Dropdown.Item eventKey='title'>By name</Dropdown.Item>
-        <Dropdown.Item eventKey='added_at'>By Date</Dropdown.Item>
-        <Dropdown.Item eventKey='rating'>By Rating</Dropdown.Item>
-      </Dropdown.Menu>
-    </Dropdown>
+    <Box fill align='center' justify='center'>
+      <Select
+        icon={<Unsorted color='blue' />}
+        id='select'
+        name='select'
+        placeholder='Sort By'
+        labelKey='label'
+        valueKey={{ key: 'value', reduce: true }}
+        value={objectOptions.value}
+        options={objectOptions}
+        onChange={({ value: nextValue }) => {
+          handleSorting(nextValue);
+        }}
+      />
+    </Box>
   );
 };
 
