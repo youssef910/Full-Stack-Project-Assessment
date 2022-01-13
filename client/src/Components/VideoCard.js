@@ -1,11 +1,15 @@
 import React from 'react';
 import ReactPlayer from 'react-player';
-import { Card, Button, Badge, Row, Col } from 'react-bootstrap';
 import {
-  HandThumbsDownFill,
-  HandThumbsUpFill,
-  TrashFill,
-} from 'react-bootstrap-icons';
+  Box,
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  Grommet,
+} from 'grommet';
+import { Dislike, Like, Trash } from 'grommet-icons';
 import { upVote, downVote } from '../api/VideoListManagement';
 
 const VideoCard = (props) => {
@@ -24,45 +28,56 @@ const VideoCard = (props) => {
   };
 
   return (
-    <Card text='center' bg='info' style={{ width: '32%' }} className='m-1 p-0'>
-      <Card.Header center>{video.title}</Card.Header>
-      <Card.Body>
-        <ReactPlayer url={video.url} light width={'100%'} controls={true} />
-      </Card.Body>
-
-      <Card.Body>
-        <Row>
-          <Col>
-            <Button type='button' variant='primary'>
-              Rating{' '}
-              <Badge text='danger' pill bg='dark'>
-                {video.rating}
-              </Badge>
-            </Button>
-          </Col>
-          <Col>
-            <HandThumbsUpFill
-              color='blue'
-              size={'1.5rem'}
-              onClick={handleUpVote}
+    <Grommet full>
+      <Card
+        round='small'
+        elevation='small'
+        width='medium'
+        background='#72A2C0'
+        border={{ color: '#00743F', size: 'medium' }}
+      >
+        <CardHeader level='2' justify='center' pad='medium'>
+          {video.title}
+        </CardHeader>
+        <CardBody height='small' pad='small'>
+          <ReactPlayer url={video.url} light width={'100%'} controls />
+        </CardBody>
+        <CardFooter direction='column'>
+          <Box direction='row' align='center' gap='medium'>
+            <Button
+              a11yTitle='2 Available Updates'
+              label='rating'
+              badge={{
+                value: video.rating,
+                max: 10000,
+              }}
             />
-            up vote
-          </Col>
-          <Col>
-            <HandThumbsDownFill color='red' onClick={handleDownVote} />
-            Down vote
-          </Col>
-        </Row>
-      </Card.Body>
-      <Card.Body>
-        <Row>
-          <Col>
-            <TrashFill color='red' size={20} onClick={handleDeleteVideo} />
-            Delete Video
-          </Col>
-        </Row>
-      </Card.Body>
-    </Card>
+            <Box direction='row' gap='small'>
+              <Button
+                plain
+                icon={<Like color='blue' size='small' />}
+                label='Up Vote'
+                onClick={handleUpVote}
+              />
+              <Button
+                plain
+                icon={<Dislike color='red' size='small' />}
+                label='down Vote'
+                onClick={handleDownVote}
+              />
+            </Box>
+          </Box>
+          <Box
+            direction='row'
+            align='center'
+            alignContent='center'
+            gap='medium'
+          >
+            <Trash color='red' size='medium' onClick={handleDeleteVideo} />
+          </Box>
+        </CardFooter>
+      </Card>
+    </Grommet>
   );
 };
 
